@@ -1,0 +1,209 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Abril Fatface', sans-serif;
+    background-color: #fff8f8;
+    color: #333;
+}
+
+.menu{
+    background-color: #f8d7da;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 20px;
+}
+
+.menu ul{
+    display: flex;
+    list-style: none;
+    gap: 20px;
+}
+
+.menu a{
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+.menu a:hover{
+    color: #c2185b;
+}
+
+.banner{
+    position: relative;
+}
+
+.banner img{
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+}
+
+.texto-banner{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    text-align: center;
+    color: white;
+}
+
+.texto-banner h2{
+    font-size: 60px;
+}
+
+.texto-banner p{
+    font-size: 20px;
+}
+
+.sobre h2{
+    margin-bottom: 20px;
+}
+
+.sobre p::first-letter{
+    font-size: 30px;
+    color: #c2185b;
+}
+
+.albuns{
+    padding: 50px;
+    text-align: center;
+}
+
+.container-albuns{
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.card{
+    background-color: white;
+    width: 250px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+
+.card:hover{
+    transform: scale(1.05);
+}
+
+.card img{
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.card h3{
+    margin: 15px 0;
+}
+
+.card a{
+    display: inline-block;
+    margin-bottom: 20px;
+    background-color: #f8d7da;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: black;
+}
+
+footer{
+    background-color: #f8d7da;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+}
+
+.debut h3{
+    font-family: 'Sacramento', serif;
+    color: rgb(40, 172, 51);
+}
+
+.fearless h3{
+    font-family: 'Lexend', serif;
+    color: goldenrod;
+}
+
+.speaknow h3{
+    font-family: 'Rochester', cursive;
+    color: purple;
+}
+
+.red h3{
+    font-family: 'Anton', serif;
+    color: darkred;
+}
+
+.nine h3{
+    font-family: 'Permanent Marker', serif;
+    color: lightskyblue;
+}
+
+.reputation h3{
+    font-family: 'UnifrakturMaguntia', cursive;
+    color: black;
+}
+
+.lover h3{
+    font-family: 'Satisfy', serif;
+    color: lightpink;
+}
+
+.folklore h3{
+    font-family: 'IM Fell DW Pica', serif;
+    color: grey;
+}
+
+.evermore h3{
+    font-family: 'IM Fell DW Pica', cursive;
+    color: brown;
+}
+
+.fearlesstv h3{
+    font-family: 'Lexend', serif;
+    color: goldenrod;
+}
+
+.redtv h3{
+    font-family: 'Anton', serif;
+    color: darkred;
+}
+
+.midnights h3{
+    font-family: 'Pacifico', cursive;
+    color: navy;
+}
+
+.speaknowtv h3{
+    font-family: 'Rochester', cursive;
+    color: purple;
+}
+
+.ninetv h3{
+    font-family: 'Permanent Marker', serif;
+    color: lightblue;
+}
+
+.ttpd h3{
+    font-family: 'Libre Baskerville', serif;
+    color: gray;
+}
+
+.tloas h3{
+    font-family: 'Anton', cursive;
+    color: orangered;
+}
+
