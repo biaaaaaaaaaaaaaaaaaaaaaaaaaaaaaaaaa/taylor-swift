@@ -10,40 +10,217 @@ body{
     color: #333;
 }
 
-.menu{
-    background-color: #f8d7da;
-
+header {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
-
-    padding: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 12px 0;
+    background: rgba(248, 215, 218, 0.25); 
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 1000;
+    border-bottom: 1px solid rgba(194, 24, 91, 0.3);
 }
 
-.menu ul{
+.menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+}
+
+.menu h1 {
+    font-family: 'Abril Fatface', serif;
+    font-size: 38px;
+    color: white;
+    letter-spacing: 4px;
+    text-shadow:
+        0 0 5px white,
+        0 0 15px #f8d7da,
+        0 0 30px #c2185b;
+}
+
+.menu ul {
     display: flex;
     list-style: none;
-    gap: 20px;
+    gap: 16px;
 }
 
-.menu a{
+.menu a {
     text-decoration: none;
-    color: #333;
-    font-weight: bold;
-}
-
-.menu a:hover{
     color: #c2185b;
+    font-weight: bold;
+    font-size: 15px;
+    border: 2px solid #c2185b;
+    border-radius: 20px;
+    padding: 5px 16px;
+    transition: 0.3s;
+    text-shadow: 0 0 8px rgba(194, 24, 91, 0.4);
 }
 
-.banner{
+.menu a:hover {
+    color: white;
+    background-color: #c2185b;
+    text-shadow: 0 0 10px white;
+}
+
+body {
+    padding-top: 100px;
+}
+
+
+
+.hero-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+    background-color: #fff8f8;
+}
+
+.circle-card {
     position: relative;
+    width: 300px;
+    height: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: width 0.5s ease;
+    transition-delay: 0.5s;
+    --clr: #c2185b;  
 }
 
-.banner img{
+.circle-card:hover {
+    width: 620px;
+    transition-delay: 0.5s;
+}
+
+.circle-card .circle {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 500px;
+    height: 100%;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.circle-card .circle::before {
+    content: "";
+    position: absolute;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    background: #2a0010;
+    border: 8px solid var(--clr);
+    transition: width 0.5s, height 0.5s, border-radius 0.5s, background 0.5s;
+    transition-delay: 0.75s, 0.75s, 0.75s, 1s;
+    filter: drop-shadow(0 0 20px var(--clr)) drop-shadow(0 0 50px var(--clr));
+}
+
+.circle-card:hover .circle::before {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    background: var(--clr);
+    transition-delay: 0.5s;
+    filter: drop-shadow(0 0 30px #f48fb1);
+}
+
+
+.circle-card .circle .circle-logo {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
     object-fit: cover;
+    transition: transform 0.5s, opacity 0.5s;
+    transition-delay: 0.5s;
+    z-index: 2;
+}
+
+.circle-card:hover .circle .circle-logo {
+    transform: scale(0);
+    opacity: 0;
+    transition-delay: 0s;
+}
+
+.circle-card .product_img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0) rotate(315deg);
+    height: 280px;
+    transition: all 0.5s ease-in-out;
+    z-index: 3;
+    filter: drop-shadow(0 8px 24px rgba(0,0,0,0.4));
+}
+
+.circle-card:hover .product_img {
+    top: 40%;
+    left: 72%;
+    height: 300px;
+    transform: translate(-50%, -50%) scale(1) rotate(15deg);
+    transition-delay: 0.75s;
+}
+
+.circle-card .content {
+    position: absolute;
+    width: 48%;
+    left: 20%;
+    padding: 20px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s, visibility 0.5s, left 0.5s;
+    z-index: 4;
+}
+
+.circle-card:hover .content {
+    opacity: 1;
+    visibility: visible;
+    left: 24px;
+    transition-delay: 0.75s;
+}
+
+.circle-card .content h2 {
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 2.2em;
+    line-height: 1em;
+    font-family: 'Abril Fatface', serif;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+}
+
+.circle-card .content p {
+    color: rgba(255,255,255,0.9);
+    font-size: 0.95em;
+    margin-top: 8px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.circle-card .content a {
+    color: #fff;
+    background: #880035;
+    padding: 10px 22px;
+    border-radius: 10px;
+    display: inline-block;
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: 14px;
+    font-family: 'Poppins', sans-serif;
+    transition: background 0.3s, box-shadow 0.3s;
+}
+
+.circle-card .content a:hover {
+    background: #c0005a;
+    box-shadow: 0 0 16px rgba(194, 24, 91, 0.6);
 }
 
 .texto-banner{
@@ -118,6 +295,19 @@ body{
     border-radius: 5px;
     text-decoration: none;
     color: black;
+}
+
+.sobre p {
+    background-color: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+    border-left: 5px solid #c2185b;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 footer{
