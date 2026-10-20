@@ -1,0 +1,475 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    font-family: 'Comic Neue', 'Comic Sans MS', cursive;
+    color: #000;
+    background: repeating-conic-gradient(#ffeb3b 0deg 15deg, #ff4081 15deg 30deg);
+    animation: girar-fundo 8s linear infinite;
+    overflow-x: hidden;
+}
+
+@keyframes girar-fundo {
+    from { background-position: 0 0; }
+    to { background-position: 400px 400px; }
+}
+
+.marquee {
+    background: #000;
+    color: #0f0;
+    font-family: 'Anton', sans-serif;
+    font-size: 1.4rem;
+    padding: 8px 0;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.marquee span {
+    display: inline-block;
+    padding-left: 100%;
+    animation: rolar 12s linear infinite;
+}
+
+@keyframes rolar {
+    from { transform: translateX(0); }
+    to { transform: translateX(-100%); }
+}
+
+.marquee-reverso {
+    background: #ff0000;
+    color: #fff;
+}
+
+.marquee-reverso span {
+    animation-direction: reverse;
+    animation-duration: 9s;
+}
+
+.marquee-rodape {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9000;
+    background: #ffeb3b;
+    color: #000;
+}
+
+/* tela piscando em cores invertidas (2x por segundo, abaixo do limite de 3 flashes/s) */
+.inverter {
+    position: fixed;
+    inset: 0;
+    z-index: -1; /* fica atrás do conteúdo: só o fundo inverte */
+    background: #fff;
+    mix-blend-mode: difference;
+    pointer-events: none;
+    animation: inverter-cores 1s steps(1) infinite;
+}
+
+@keyframes inverter-cores {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+}
+
+#spam {
+    position: fixed;
+    inset: 0;
+    z-index: 8000;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.spam-item {
+    position: absolute;
+    font-family: 'Anton', Impact, sans-serif;
+    white-space: nowrap;
+    text-shadow: 2px 2px 0 #000;
+    transform: rotate(var(--giro));
+    animation: surgir-spam 0.3s ease-out;
+}
+
+@keyframes surgir-spam {
+    from { transform: rotate(var(--giro)) scale(0); }
+    to { transform: rotate(var(--giro)) scale(1); }
+}
+
+/* fundo hipnótico: raios girando + anéis saindo do centro, com as cores
+   mudando sem parar. O pisca invertido vem do .inverter por cima. */
+.hipnose {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    background: #000;
+    animation: hipnose-cores 4s linear infinite;
+}
+
+.hipnose::before,
+.hipnose::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 220vmax;
+    height: 220vmax;
+    margin: -110vmax 0 0 -110vmax;
+    border-radius: 50%;
+}
+
+.hipnose::before {
+    background: repeating-conic-gradient(#ff00cc 0deg 10deg, #00ffee 10deg 20deg, #ffee00 20deg 30deg);
+    animation: hipnose-girar 6s linear infinite, intensidade 1.5s ease-in-out infinite alternate;
+}
+
+@property --anel {
+    syntax: '<length>';
+    inherits: false;
+    initial-value: 0px;
+}
+
+.hipnose::after {
+    background: repeating-radial-gradient(circle,
+        #000 calc(var(--anel) - 6vmax), #000 calc(var(--anel) - 3vmax),
+        transparent calc(var(--anel) - 3vmax), transparent var(--anel));
+    mix-blend-mode: difference;
+    animation: hipnose-aneis 1.5s linear infinite;
+}
+
+@keyframes hipnose-girar {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes hipnose-aneis {
+    from { --anel: 0vmax; }
+    to { --anel: 6vmax; }
+}
+
+@keyframes hipnose-cores {
+    to { filter: hue-rotate(360deg); }
+}
+
+.container {
+    animation: piscar-caixa 1s steps(1) infinite;
+}
+
+@keyframes piscar-caixa {
+    0% { background: #fff; border-color: #000; }
+    50% { background: #ff80ab; border-color: #ff0000; }
+}
+
+
+/* BonziBUDDY balançando no cipó */
+.cipo {
+    position: fixed;
+    top: -10px;
+    left: 30vw;
+    width: 4px;
+    height: 55vh;
+    background: repeating-linear-gradient(#2e7d32 0 12px, #66bb6a 12px 20px);
+    transform-origin: top center;
+    z-index: 9500;
+    animation:
+        chegar-cipo 2.5s ease-out forwards,
+        balancar-cipo 3s ease-in-out 2.5s infinite alternate;
+}
+
+@keyframes chegar-cipo {
+    from { transform: rotate(80deg); }
+    to { transform: rotate(-25deg); }
+}
+
+@keyframes balancar-cipo {
+    from { transform: rotate(-25deg); }
+    to { transform: rotate(25deg); }
+}
+
+.bonzi {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-60%, -10px);
+    cursor: pointer;
+}
+
+.balao {
+    position: absolute;
+    bottom: 100%;
+    left: 70%;
+    width: 220px;
+    padding: 10px 12px;
+    background: #fffde7;
+    color: #000;
+    border: 3px solid #000;
+    border-radius: 14px;
+    font-size: 0.95rem;
+    font-weight: bold;
+}
+
+/* troca de cor do fundo: muda a cada 0,5s, nos mesmos instantes do .inverter,
+   então o total continua em 2 flashes por segundo */
+.cor-fundo {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    mix-blend-mode: hard-light;
+    opacity: 0.65;
+    animation: trocar-cor-fundo 2s steps(1) infinite;
+}
+
+@keyframes trocar-cor-fundo {
+    0% { background: #ff0000; }
+    25% { background: #00ff00; }
+    50% { background: #0000ff; }
+    75% { background: #ffff00; }
+}
+
+/* intensidade subindo e descendo devagar (não é flash, é gradual) */
+@keyframes intensidade {
+    from { filter: brightness(0.35) saturate(0.8); }
+    to { filter: brightness(1.8) saturate(3); }
+}
+
+/* rastro de brainrots seguindo o mouse (estilo malware antigo) */
+.rastro {
+    position: fixed;
+    z-index: 8500;
+    width: 110px;
+    height: 110px;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+    border: 3px solid #fff;
+    outline: 2px solid #000;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.6);
+    pointer-events: none;
+}
+
+/* ícones que explodem no clique */
+.icone-clique {
+    position: fixed;
+    z-index: 9800;
+    font-size: 2.5rem;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    animation: explodir-icone 0.9s ease-out forwards;
+}
+
+@keyframes explodir-icone {
+    from { transform: translate(-50%, -50%) scale(0.3); opacity: 1; }
+    to { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.4); opacity: 0; }
+}
+
+/* Tung Tung Tung Sahur atravessando a tela */
+.sahur {
+    position: fixed;
+    bottom: 50px;
+    left: 0;
+    z-index: 9400;
+    text-align: center;
+    pointer-events: none;
+    animation: sahur-andar 7s linear infinite;
+}
+
+.sahur img {
+    display: block;
+    margin: 0 auto;
+    height: clamp(180px, 35vh, 320px);
+    animation: sahur-pular 0.4s ease-in-out infinite alternate;
+}
+
+.sahur-texto {
+    font-family: 'Anton', Impact, sans-serif;
+    font-size: clamp(1.2rem, 4vw, 2.2rem);
+    color: #fff;
+    background: #000;
+    padding: 2px 10px;
+    white-space: nowrap;
+}
+
+@keyframes sahur-andar {
+    from { transform: translateX(-250px); }
+    to { transform: translateX(calc(100vw + 50px)); }
+}
+
+@keyframes sahur-pular {
+    from { transform: translateY(0) rotate(-8deg); }
+    to { transform: translateY(-30px) rotate(8deg); }
+}
+
+.container {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 30px 16px;
+    background: #fff;
+    border: 8px dashed #000;
+    text-align: center;
+    transform: rotate(-1.5deg);
+    box-shadow: 15px 15px 0 #000;
+}
+
+.titulo {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(2.5rem, 10vw, 5rem);
+    color: #ff0000;
+    text-shadow: 4px 4px 0 #000, -2px -2px 0 #ffeb3b;
+    animation: tremer 0.15s infinite;
+}
+
+@keyframes tremer {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(-3px, 2px) rotate(-1deg); }
+    50% { transform: translate(3px, -2px) rotate(1deg); }
+    75% { transform: translate(-2px, -3px) rotate(0deg); }
+    100% { transform: translate(2px, 3px) rotate(-1deg); }
+}
+
+.trollface {
+    font-family: monospace;
+    font-size: clamp(0.45rem, 2vw, 0.9rem);
+    line-height: 1.1;
+    margin: 20px auto;
+    display: inline-block;
+    text-align: left;
+    animation: pular 1s ease-in-out infinite;
+}
+
+@keyframes pular {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.08) rotate(3deg); }
+}
+
+.problem {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(2rem, 8vw, 4rem);
+    animation: arco-iris 1s linear infinite;
+}
+
+@keyframes arco-iris {
+    0% { color: #ff0000; }
+    20% { color: #ff9900; }
+    40% { color: #33cc33; }
+    60% { color: #0099ff; }
+    80% { color: #cc33ff; }
+    100% { color: #ff0000; }
+}
+
+.texto {
+    font-size: 1.3rem;
+    margin: 20px 0;
+}
+
+.aviso-github {
+    margin: 25px auto;
+    padding: 20px 16px;
+    max-width: 600px;
+    background: #24292f;
+    color: #fff;
+    border: 4px solid #ff0000;
+    border-radius: 12px;
+    font-size: 1.3rem;
+    transform: rotate(1.5deg);
+    animation: piscar-borda 0.8s steps(2) infinite;
+}
+
+.aviso-github .tudo-bem {
+    font-family: 'Anton', sans-serif;
+    font-size: 1.8rem;
+    color: #00e676;
+    margin-bottom: 8px;
+}
+
+@keyframes piscar-borda {
+    0% { border-color: #ff0000; }
+    100% { border-color: #ffeb3b; }
+}
+
+.stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    margin: 25px 0;
+}
+
+.stat {
+    background: #000;
+    color: #ffeb3b;
+    padding: 15px 20px;
+    border-radius: 10px;
+    min-width: 160px;
+    display: flex;
+    flex-direction: column;
+}
+
+.stat .num {
+    font-family: 'Anton', sans-serif;
+    font-size: 2.5rem;
+}
+
+.stat .label {
+    font-size: 0.9rem;
+    color: #fff;
+}
+
+.botao-fugitivo {
+    display: inline-block;
+    padding: 12px 28px;
+    background: #00c853;
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 30px;
+    border: 3px solid #000;
+    transition: left 0.15s, top 0.15s;
+    z-index: 999;
+}
+
+.dica {
+    font-size: 0.9rem;
+    margin-top: 8px;
+    color: #555;
+}
+
+.voltar-real {
+    display: block;
+    margin-top: 30px;
+    font-size: 0.75rem;
+    color: #999;
+}
+
+/* botão NÃO CLIQUE -> leva pra página meme (oi/index.html) */
+.nao-clique {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    padding: 18px 32px;
+    background: #e10000;
+    color: #fff;
+    font-family: 'Anton', Impact, sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+    text-decoration: none;
+    border-radius: 50px;
+    border: 4px solid #7a0000;
+    box-shadow: 0 6px 0 #7a0000, 0 0 25px rgba(255, 0, 0, 0.6);
+    animation: pulsar-nao-clique 1.2s ease-in-out infinite;
+}
+
+.nao-clique:hover {
+    background: #ff1a1a;
+}
+
+.nao-clique:active {
+    transform: translateY(4px);
+    box-shadow: 0 2px 0 #7a0000;
+}
+
+@keyframes pulsar-nao-clique {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+}
